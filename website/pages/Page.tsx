@@ -9,6 +9,8 @@ import {
 import { JSX } from "preact";
 import Events from "../components/Events.tsx";
 import LiveControls from "../components/_Controls.tsx";
+import { AppContext } from "../mod.ts";
+// import { Page } from "deco/blocks/page.tsx";
 
 /**
  * @title Sections
@@ -36,10 +38,13 @@ export function renderSection(section: Props["sections"][number]) {
 /**
  * @title Page
  */
-function Page({ sections }: Props): JSX.Element {
+function Page({ sections }: Props & { errorPage: string }): JSX.Element {
   const metadata = useDecoPageContext()?.metadata;
   const routerCtx = useRouterContext();
   const pageId = pageIdFromMetadata(metadata);
+
+  console.log("Beleza, cheguei aqui!");
+  // console.log ("errorPage: ", errorPage);
 
   return (
     <>
@@ -53,6 +58,14 @@ function Page({ sections }: Props): JSX.Element {
     </>
   );
 }
+
+export const loader = (
+  { sections }: Props,
+  _req: Request,
+  _ctx: AppContext,
+) => {
+  return { sections, errorPage: _ctx.errorPage };
+};
 
 export function Preview({ sections }: Props) {
   return (
