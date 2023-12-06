@@ -10,6 +10,7 @@ const compatibilityApps = [{
 
 const config = {
   apps: [
+    app("workspace"),
     app("implementation"),
     app("weather"),
     {
